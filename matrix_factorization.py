@@ -1,20 +1,6 @@
 import globals
 
-def get_matrix()->list[list]:
-    print("输入矩阵的行数和列数，用空格分开")
-    # n,m row,column
-    n,m = map(int,input().split(" "))
 
-    print("输入矩阵的每行元素，用回车分开行")
-
-    matrix = [[0 for _ in range(m)]]
-
-    for i in range(1,n+1):
-        t = list(map(int,input().split(" ")))
-        t.insert(0,0)
-        matrix.append(t)
-    
-    return matrix
 
 def lu(mat,n=None):
     if n is None:
@@ -22,6 +8,7 @@ def lu(mat,n=None):
     
  
     res = globals.zeros(n,n)
+    l,u = globals.zeros(n,n),globals.zeros(n,n)
 
     def compute(r,c):
         origin = mat[r][c]
@@ -38,9 +25,21 @@ def lu(mat,n=None):
                 res[i][j] = temp
             else:
                 res[i][j] = temp / res[j][j]
+
+    for i in range(1,n+1):
+        for j in range(1,n+1):
+            if i < j:
+                u[i][j] = res[i][j]
+            elif i == j:
+                u[i][j] = res[i][j]
+                l[i][j] = 1
+            else:
+                l[i][j] = res[i][j]
+    
+    return l,u
     
     
-    return res
+
 
 
 # test data
@@ -53,8 +52,8 @@ def lu(mat,n=None):
 
 # globals.indexlize(mat)
 
-# res = lu(mat)
+# l,u = lu(mat)
 
-
-# print(res)
-# globals.output(res)
+# globals.output(l)
+# print()
+# globals.output(u)
