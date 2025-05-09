@@ -1,5 +1,5 @@
 import globals
-
+import math
 
 
 def lu(mat,n=None):
@@ -39,7 +39,34 @@ def lu(mat,n=None):
     return l,u
     
     
+def cholesky(mat,n=None):
+    if n is None:
+        n = len(mat)-1
+    
+    res = globals.zeros(n,n)
 
+    def compute_drag(r):
+        origin = mat[r][r]
+        for i in range(1,r):
+            origin -= res[r][i]**2
+        
+        return math.sqrt(origin)
+    
+    def compute(r,c):
+        origin = mat[r][c]
+        for i in range(1,c):
+            origin -= res[r][i]*res[c][i]
+        
+        return origin / res[j][j]
+
+    for i in range(1,n+1):
+        for j in range(1,i+1):
+            if i != j:
+                res[i][j] = compute(i,j)
+            else:
+                res[i][j] = compute_drag(i)
+
+    return res
 
 
 # test data
@@ -57,3 +84,14 @@ def lu(mat,n=None):
 # globals.output(l)
 # print()
 # globals.output(u)
+
+# A = [
+#     [9,18,9,-27],
+#     [18,45,0,-45],
+#     [9,0,126,9],
+#     [-27,-45,9,135]
+# ]
+# globals.indexlize(A)
+
+# res = cholesky(A,4)
+# globals.output(res)
