@@ -10,9 +10,16 @@ mat = [
     [1,3,4,4]
 ]
 
+hhh = [
+    [4],
+    [74],
+    [7],
+    [4]
+]
+
 g.indexlize(mat)
 g.vectorlize(v)
+g.indexlize(hhh)
 
-print(matn.v_p_norm(v,5))
 
-print(matn.mat_1norm(mat))
+g.output(g.multiple(mat,2))

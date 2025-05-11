@@ -65,6 +65,68 @@ def T(A,n=None):
         for j in range(1,i):
             A[i][j],A[j][i] = A[j][i],A[i][j]
 
+def add(a,b,m=None,n=None):
+    if m is None or n is None:
+        m = len(a)-1
+        n = len(a[1])-1
+
+    res = zeros(m,n)
+
+    for i in range(1,m+1):
+        for j in range(1,n+1):
+            res[i][j] = a[i][j] + b[i][j]
+
+    return res
+
+def multiple(a,b,*,ar=None,ac=None,br=None,bc=None):
+    if ar is None or ac is None:
+        ar = len(a)-1
+        ac = len(a[1])-1
+    if not isinstance(b,list):
+        res = zeros(ar,ac)
+        for i in range(1,ar+1):
+            for j in range(1,ac+1):
+                res[i][j] = a[i][j]*b
+            
+        return res
+    
+    if br is None or bc is None:
+        br = len(b)-1
+        bc = len(b[1])-1
+    
+    res = zeros(ar,bc)
+
+
+    def compute(i,j):
+        res = 0
+        if ac != br:
+            raise TypeError("The matrixs can not be multiped")
+        for k in range(1,ac+1):
+            res += a[i][k]*b[k][j]
+
+        return res
+
+    for i in range(1,ar+1):
+        for j in range(1,bc+1):
+            res[i][j] = compute(i,j)
+        
+    return res
+
+        
+def minus(a,b,m=None,n=None):
+    if m is None or n is None:
+        m = len(a)-1
+        n = len(a[1])-1
+    
+    tempb = multiple(b,-1)
+    return add(a,tempb)
+    
+
+
+def eigvals(mat,n=None):
+    if n is None:
+        n = len(n)-1
+    
 
 
 # A = [
