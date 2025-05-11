@@ -86,12 +86,11 @@ def cholesky(mat,n=None):
 # globals.output(u)
 
 # A = [
-#     [9,18,9,-27],
-#     [18,45,0,-45],
-#     [9,0,126,9],
-#     [-27,-45,9,135]
+#     [9,18,9],
+#     [18,45,0],
+#     [9,0,126],
 # ]
 # globals.indexlize(A)
 
-# res = cholesky(A,4)
+# res = cholesky(A,3)
 # globals.output(res)
