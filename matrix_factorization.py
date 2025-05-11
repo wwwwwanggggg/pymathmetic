@@ -69,28 +69,10 @@ def cholesky(mat,n=None):
     return res
 
 
-# test data
-# mat = [
-#     [4,-2,0,4],
-#     [-2,2,-3,1],
-#     [0,-3,13,-7],
-#     [4,1,-7,23]
-# ]
+def QR(mat,m=None,n=None):
+    """m for row and n for column"""
+    if m is None or n is None:
+        m = len(mat)-1
+        n = len(mat[0])-1
 
-# globals.indexlize(mat)
-
-# l,u = lu(mat)
-
-# globals.output(l)
-# print()
-# globals.output(u)
-
-# A = [
-#     [9,18,9],
-#     [18,45,0],
-#     [9,0,126],
-# ]
-# globals.indexlize(A)
-
-# res = cholesky(A,3)
-# globals.output(res)
+    
