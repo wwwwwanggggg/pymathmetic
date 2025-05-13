@@ -27,6 +27,8 @@ g.vectorlize(vv)
 starter = [1,1,1,1]
 g.vectorlize(starter)
 
-res = sle.jacobi_recursion(other,vv,3)
+# res = sle.jacobi_recursion(other,vv,3)
+res = sle.gauss_seidel(other,vv,3)
+
 
 g.output_vector(res)

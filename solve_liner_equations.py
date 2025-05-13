@@ -87,3 +87,36 @@ def jacobi_recursion(mat,b,n=None,*,use_logger=True,start=None,times=20):
             globals.output_vector(temp,prefix=f"第{i}次迭代:\n",end="\n")
 
     return temp
+
+
+def gauss_seidel(mat,b,n=None,*,use_logger=True,start=None,times=20):
+    if n is None:
+        n = len(mat)-1
+
+    if start is None:
+        start = [0 for _ in range(n+1)]
+    
+    def recursion(xk):
+        res = [0 for _ in range(n+1)]
+        for i in range(1,n+1):
+            res[i] = b[i]
+            for j in range(1,n+1):
+                if i < j:
+                    res[i] -= mat[i][j] * xk[j]
+                elif i > j:
+                    res[i] -= mat[i][j] * res[j]
+            
+            res[i] /= mat[i][i]
+        
+        return res
+
+    temp = start
+    if use_logger:
+        globals.output_vector(temp,prefix="第0次迭代:\n",end="\n")
+
+    for i in range(1,times+1):
+        temp = recursion(temp)
+        if use_logger:
+            globals.output_vector(temp,prefix=f"第{i}次迭代:\n",end="\n")
+
+    return temp
