@@ -69,6 +69,26 @@ def cholesky(mat,n=None):
     return res
 
 
+def gauss(mat,m=None,n=None):
+    print(mat)
+    if m is None or n is None:
+        m = len(mat)-1
+        n = len(mat[1])-1
+    
+    res = mat.copy()
+
+    for i in range(1,m+1):
+        for j in range(i+1,m+1):
+            num = -res[j][i]/res[i][i]
+            globals.add_row_to_other(mat,i,j,num,m,n)
+
+
+
+
+
+    
+
+
 def QR(mat,m=None,n=None):
     """m for row and n for column"""
     if m is None or n is None:

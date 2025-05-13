@@ -1,5 +1,6 @@
 import matrix_norm as matn
 import globals as g
+import matrix_factorization as matf
 
 v = [3,4,9,45,12,789,3]
 
@@ -17,9 +18,16 @@ hhh = [
     [4]
 ]
 
-g.indexlize(mat)
-g.vectorlize(v)
 g.indexlize(hhh)
 
+g.indexlize(mat)
 
-g.output(g.multiple(mat,2))
+matf.gauss(hhh)
+g.output(hhh,prefix="gauss:\n")
+
+# g.indexlize(mat)
+# g.vectorlize(v)
+# g.indexlize(hhh)
+
+
+# g.output(g.multiple(mat,))

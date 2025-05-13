@@ -17,9 +17,44 @@ def get_matrix()->list[list]:
     
     return matrix
 
-
 def zeros(n,m): 
     return [[0 for _ in range(m+1)] for _ in range(n+1)]
+
+
+def multi_row(mat,row,num,m=None,n=None):
+    if n is None or m is None:
+        n = len(mat)-1
+        m = len(mat[0])-1
+
+    for i in range(1,n+1):
+        mat[row][i] *= num
+
+
+def multi_column(mat,column,num,m=None,n=None):
+    if n is None or m is None:
+        n = len(mat)-1
+        m = len(mat[0])-1
+
+    for i in range(1,n+1):
+        mat[i][column] *= num
+
+def add_row_to_other(mat,row,added_row,num,m=None,n=None):
+    if n is None or m is None:
+        n = len(mat)-1
+        m = len(mat[0])-1
+
+    for i in range(1,n+1):
+        mat[added_row][i] += num * mat[row][i]
+
+    
+def add_column_to_other(mat,column,added_column,num,m=None,n=None):
+    if n is None or m is None:
+        n = len(mat)-1
+        m = len(mat[0])-1
+
+    for i in range(1,n+1):
+        mat[i][added_column] += num * mat[i][column]
+
 
 def indexlize(mat:list):
     column = len(mat[0])
@@ -126,6 +161,9 @@ def minus(a,b,m=None,n=None):
 def eigvals(mat,n=None):
     if n is None:
         n = len(n)-1
+    
+    
+    
     
 
 
