@@ -163,9 +163,16 @@ def eigvals(mat,n=None):
         n = len(n)-1
     
     
-    
-    
+def mat_reverse(mat):
+    pass
 
+
+def cond(mat,norm_func):
+    temp = norm_func(mat)
+    mat_reverse(mat)
+    temp *= norm_func(mat)
+
+    return temp
 
 # A = [
 #     [1,2,4],

@@ -58,43 +58,32 @@ def cholesky_solve(A,b,n=None):
 
     return x
 
+def jacobi_recursion(mat,b,n=None,*,use_logger=True,start=None,times=20):
+    if n is None:
+        n = len(mat)-1
 
-# A  = [
-#     [3,0,0,0],
-#     [6,3,0,0],
-#     [3,-6,9,0],
-#     [-9,3,6,3]
-# ]
+    if start is None:
+        start = [0 for _ in range(n+1)]
+    
+    def recursion(xk):
+        res = [0 for _ in range(n+1)]
+        for i in range(1,n+1):
+            res[i] = b[i]
+            for j in range(1,n+1):
+                if i != j:
+                    res[i] -= mat[i][j] * xk[j]
+            
+            res[i] /= mat[i][i]
+        
+        return res
 
-# b = [1,2,16,8]
-# globals.vectorlize(b)
-# globals.indexlize(A)
-# globals.output_vector(up_angle_mat_solve(A,b))
+    temp = start
+    if use_logger:
+        globals.output_vector(temp,prefix="第0次迭代:\n",end="\n")
 
-# B = [
-#     [1,2,1],
-#     [0,3,-2],
-#     [0,0,2]
-# ]
-# globals.indexlize(B)
+    for i in range(1,times+1):
+        temp = recursion(temp)
+        if use_logger:
+            globals.output_vector(temp,prefix=f"第{i}次迭代:\n",end="\n")
 
-# b = [3,-9,6]
-# globals.vectorlize(b)
-
-# globals.output_vector(up_angle_mat_solve(B,b))
-
-
-A = [
-    [1,2,3],
-    [2,5,8],
-    [3,8,14]
-]
-
-b = [6,18,32]
-
-globals.indexlize(A)
-globals.vectorlize(b)
-
-globals.output_vector(lu_solve(A,b))
-print()
-globals.output_vector(cholesky_solve(A,b))
+    return temp

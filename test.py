@@ -1,8 +1,9 @@
 import matrix_norm as matn
 import globals as g
 import matrix_factorization as matf
+import solve_liner_equations as sle
 
-v = [3,4,9,45,12,789,3]
+v = [3,4,9,45]
 
 mat = [
     [1,2,5,8],
@@ -11,23 +12,21 @@ mat = [
     [1,3,4,4]
 ]
 
-hhh = [
-    [4],
-    [74],
-    [7],
-    [4]
+other = [
+    [10,-1,-2],
+    [-1,10,-2],
+    [-1,-1,5]
 ]
 
-g.indexlize(hhh)
-
-g.indexlize(mat)
-
-matf.gauss(hhh)
-g.output(hhh,prefix="gauss:\n")
-
-# g.indexlize(mat)
-# g.vectorlize(v)
-# g.indexlize(hhh)
+vv = [72,83,42]
 
 
-# g.output(g.multiple(mat,))
+g.indexlize(other)
+g.vectorlize(vv)
+
+starter = [1,1,1,1]
+g.vectorlize(starter)
+
+res = sle.jacobi_recursion(other,vv,3)
+
+g.output_vector(res)
