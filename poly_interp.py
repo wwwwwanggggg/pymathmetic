@@ -1,6 +1,21 @@
 import globals
 import solve_liner_equations as sle
 
+class Newton_func:
+    def __init__(self,n):
+        self.table = [[0 for _ in range(n)] for _ in range(n)]
+
+    def compute_table(self):
+        pass
+
+    def add_points(self,xs,ys,n=None):
+        if n is None:
+            n = len(xs)
+
+    
+    def __call__(self, *args, **kwds):
+        pass
+
 
 def force(xs,ys,n=None):
     if  n is None:
@@ -38,4 +53,10 @@ def lagrange(xs,ys,n=None):
         return temp
 
     return f
+
+
+def Newton(xs,ys,n=None,f=None):
+    if n is None:
+        n = len(xs)
+    
 
