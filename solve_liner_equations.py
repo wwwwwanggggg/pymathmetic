@@ -43,7 +43,6 @@ def lu_solve(A,b,n=None):
     l,u = matf.lu(A,n)
 
     y = down_angle_mat_solve(l,b,n)
-    globals.output_vector(y)
     x = up_angle_mat_solve(u,y,n)
     return x
 
