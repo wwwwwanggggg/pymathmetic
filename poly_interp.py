@@ -2,20 +2,33 @@ import globals
 import solve_liner_equations as sle
 
 class Newton_func:
-    def __init__(self,n):
-        self.table = [[0 for _ in range(n)] for _ in range(n)]
+    def __init__(self):
+        self.xs = []
+        self.table = []
 
-    def compute_table(self):
-        pass
+    def add_point(self,x,y):
+        self.xs.append(x)
+        l = len(self.table)
+        ys = [y]
+        for i in range(l):
+            # print(self.table,l)
+            temp = (ys[i] - self.table[l-1][i]) / (self.xs[l]-self.xs[l-1-i])
+            ys.append(temp)
+        self.table.append(ys)
 
-    def add_points(self,xs,ys,n=None):
-        if n is None:
-            n = len(xs)
-
+    def output(self):
+        for i in range(len(self.xs)):
+            print(f"x:{self.xs[i]:<10},y:{" ".join([str(j) for j in self.table[i]])}")
     
-    def __call__(self, *args, **kwds):
-        pass
-
+    def __call__(self,x):
+        temp = 0
+        for i in range(len(self.xs)):
+            tt = self.table[i][i]
+            for j in range(i):
+                tt *= x-self.xs[j]
+            temp += tt
+        
+        return temp
 
 def force(xs,ys,n=None):
     if  n is None:
@@ -35,7 +48,7 @@ def force(xs,ys,n=None):
     return res[1:]
     
 
-def lagrange(xs,ys,n=None):
+def Lagrange(xs,ys,n=None):
     if n is None:
         n = len(xs)
     
@@ -58,5 +71,9 @@ def lagrange(xs,ys,n=None):
 def Newton(xs,ys,n=None,f=None):
     if n is None:
         n = len(xs)
+
+    f = Newton_func()
+
+
     
 

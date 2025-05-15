@@ -39,7 +39,7 @@ def lu(mat,n=None):
     return l,u
     
     
-def cholesky(mat,n=None):
+def Cholesky(mat,n=None):
     if n is None:
         n = len(mat)-1
     
@@ -69,7 +69,7 @@ def cholesky(mat,n=None):
     return res
 
 
-def gauss(mat,m=None,n=None):
+def Gauss(mat,m=None,n=None):
     print(mat)
     if m is None or n is None:
         m = len(mat)-1
@@ -82,7 +82,8 @@ def gauss(mat,m=None,n=None):
             num = -res[j][i]/res[i][i]
             globals.add_row_to_other(mat,i,j,num,m,n)
 
-
+def Givens():
+    pass
 
 
 

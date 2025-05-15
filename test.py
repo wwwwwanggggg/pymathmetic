@@ -35,14 +35,25 @@ import poly_interp as p
 
 # g.output_vector(res)
 
-x = [-1,1,2,5]
-y = [-7,7,-4,35]
+# x = [-1,1,2,5]
+# y = [-7,7,-4,35]
 
-f = p.lagrange(x,y,4)
+# f = p.Lagrange(x,y,4)
 
 
-print(f(5))
+# print(f(5))
 
-nums = p.force(x,y,4)
+# nums = p.force(x,y,4)
 
-print(nums)
+# print(nums)
+
+n = p.Newton_func()
+
+n.add_point(-1,-7)
+n.add_point(1,7)
+n.add_point(2,-4)
+n.add_point(5,35)
+
+n.output()
+
+print(n(3))

@@ -46,18 +46,18 @@ def lu_solve(A,b,n=None):
     x = up_angle_mat_solve(u,y,n)
     return x
 
-def cholesky_solve(A,b,n=None):
+def Cholesky_solve(A,b,n=None):
     if n is None:
         n = len(b)-1
 
-    g = matf.cholesky(A,n)
+    g = matf.Cholesky(A,n)
     y = down_angle_mat_solve(g,b,n)
     globals.T(g,n)
     x = up_angle_mat_solve(g,y,n)
 
     return x
 
-def jacobi_recursion(mat,b,n=None,*,use_logger=True,start=None,times=20):
+def Jacobi_recursion(mat,b,n=None,*,use_logger=True,start=None,times=20):
     if n is None:
         n = len(mat)-1
 
@@ -88,7 +88,7 @@ def jacobi_recursion(mat,b,n=None,*,use_logger=True,start=None,times=20):
     return temp
 
 
-def gauss_seidel(mat,b,n=None,*,use_logger=True,start=None,times=20):
+def Gauss_Seidel(mat,b,n=None,*,use_logger=True,start=None,times=20):
     if n is None:
         n = len(mat)-1
 
