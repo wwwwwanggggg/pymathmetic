@@ -51,10 +51,9 @@ import poly_interp as p
 
 
 h = p.Hermite([-1,0],[[0],[-4,0,6]])
-print(h(3))
 h.add_point(1,[-2,5])
 
-print(h(3))
+h.output()
 
 # n = p.Newton_func()
 

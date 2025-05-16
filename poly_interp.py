@@ -17,9 +17,14 @@ class Newton_func:
             ys.append(temp)
         self.table.append(ys)
 
-    def output(self):
+    def output(self,prefix="",end=""):
+        print(prefix,end="")
         for i in range(len(self.xs)):
-            print(f"x:{self.xs[i]:<10},y:{self.table[i]}")
+            print(f"x:{self.xs[i]:<10}y:",end=" ")
+            for j in self.table[i]:
+                print(f"{str(j):^{4}}", end=" ")
+            print()
+        print(end,end="")
     
     def __call__(self,x):
         temp = 0
@@ -85,6 +90,7 @@ def Newton(xs,ys,n=None,f=None):
     
 
 # 看起来Hermite 插值不能绕过某一阶导数
+# Hermite 完全可以完成Newton插值的功能
 class Hermite_func(Newton_func):   
     def __init__(self):
         super().__init__()
