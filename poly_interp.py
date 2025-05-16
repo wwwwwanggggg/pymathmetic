@@ -1,5 +1,6 @@
 import globals
 import solve_liner_equations as sle
+from math import *
 
 class Newton_func:
     def __init__(self):
@@ -18,7 +19,7 @@ class Newton_func:
 
     def output(self):
         for i in range(len(self.xs)):
-            print(f"x:{self.xs[i]:<10},y:{" ".join([str(j) for j in self.table[i]])}")
+            print(f"x:{self.xs[i]:<10},y:{self.table[i]}")
     
     def __call__(self,x):
         temp = 0
@@ -72,8 +73,54 @@ def Newton(xs,ys,n=None,f=None):
     if n is None:
         n = len(xs)
 
-    f = Newton_func()
+    if not isinstance(f,Newton_func):
+        f = Newton_func()
+        
+    for i in range(n):
+        f.add_point(xs[i],ys[i])
+    
+    return f
 
 
     
 
+# 看起来Hermite 插值不能绕过某一阶导数
+class Hermite_func(Newton_func):   
+    def __init__(self):
+        super().__init__()
+    
+    # 认为values是一个列表，记录着各阶导数
+    def add_point(self, x, values,n=None):
+        if n is None:
+            n = len(values)
+        
+        len_xs = len(self.xs)
+        for i in range(n):
+            self.xs.append(x)
+            len_xs += 1
+            temp = [values[0]]
+            for j in range(1,len_xs):
+                # 计算temp表
+                down = self.xs[len_xs-1] - self.xs[len_xs-1-j]
+                if down == 0:
+                    # 说明要取导数
+                    temp.append(values[j]/factorial(j))
+                else:
+                    tt = (temp[j-1] - self.table[len_xs-2][j-1]) / down
+                    temp.append(tt)
+            
+            self.table.append(temp)
+
+
+def Hermite(xs,ys,n=None,h=None):
+    if n is None:
+        n = len(xs)
+
+    if not isinstance(h,Hermite_func):
+        h = Hermite_func()
+    
+    for i in range(n):
+        h.add_point(xs[i],ys[i])
+    
+    return h
+    

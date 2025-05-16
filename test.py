@@ -47,13 +47,19 @@ import poly_interp as p
 
 # print(nums)
 
-n = p.Newton_func()
+# f = p.Newton([-1,1,2,5],[-7,7,-4,35])
 
-n.add_point(-1,-7)
-n.add_point(1,7)
-n.add_point(2,-4)
-n.add_point(5,35)
 
-n.output()
+h = p.Hermite([-1,0],[[0],[-4,0,6]])
+print(h(3))
+h.add_point(1,[-2,5])
 
-print(n(3))
+print(h(3))
+
+# n = p.Newton_func()
+
+# n.add_point(1,2)
+# n.output()
+# n.add_point(1,4)
+
+# n.output()
