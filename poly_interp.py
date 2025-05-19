@@ -36,6 +36,7 @@ class Newton_func:
         
         return temp
 
+# 返回值是从0次开始到高次
 def force(xs,ys,n=None):
     if  n is None:
         n = len(xs)
@@ -45,11 +46,8 @@ def force(xs,ys,n=None):
         for j in range(1,n+1):
             A[i][j] = xs[i-1]**(j-1)
 
-
-
     cpys = ys.copy()
     globals.vectorlize(cpys)
-
     res = sle.lu_solve(A,cpys)
     return res[1:]
     
