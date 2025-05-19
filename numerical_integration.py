@@ -20,7 +20,7 @@ def root_poly_nomial_integration(roots,a,b):
 
 
 # 问题在于怎么求多项式的积分
-def Newton_Cotes(x,y,a,b,n=None):
+def Newton_Cotes(x,f:callable,a,b,n=None):
     if n is None:
         n = len(x)
     def Ai(i):
@@ -36,6 +36,53 @@ def Newton_Cotes(x,y,a,b,n=None):
 
     qf = 0
     for i in range(n):
-        qf += Ai(i)*y[i]
+        qf += Ai(i)*f(x[i])
     
     return qf
+
+def trapezoid(f:callable,a,b):
+    return (b-a)/2*(f(b)+f(a))
+
+def Simpson(f:callable,a,b):    
+    return (b-a)/6*(f(a)+4*f((a+b)/2)+f(b))
+
+def Cotes(f:callable,a,b):
+    h = (b-a)/4
+    x = [0,a+h,a+2*h+a+3*h]
+
+    return (b-a)/90*(7*f(a)+32*f(x[1])+12*f(x[2])+32*f(x[3])+7*f(b))
+
+
+
+def composite_trapezoid(f:callable,x,n=None):
+    if n is None:
+        n = len(x)
+    
+    res = 0
+    for i in range(n-1):
+        res += trapezoid(f,x[i],x[i+1])
+    
+    return res
+
+
+def composite_Simpson(f:callable,x,n=None): 
+    if n is None:
+        n = len(x)
+    
+    res = 0
+    for i in range(n-1):
+        res += Simpson(f,x[i],x[i+1])
+
+    
+    return res
+
+def composite(f:callable,x,n=None):
+    if n is None:
+        n = len(x)
+    
+    res = 0
+    for i in range(n-1):
+        res += Cotes(f,x[i],x[i+1])
+
+    return res
+
