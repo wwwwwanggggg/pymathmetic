@@ -130,3 +130,105 @@ def Hermite(xs,ys,n=None,h=None):
     
     return h
     
+
+def compute_lists(x:list,y:list,n=None):
+    if n is None:
+        n = len(x)
+
+    # 足标都从1开始
+    x.insert(0,0)
+    y.insert(0,0)
+    h = [x[i]-x[i-1] for i in range(1,n+1)]
+    h.insert(0,0)
+
+    mu = [h[i]/(h[i]+h[i+1]) for i in range(1,n)]
+    lam = [1-i for i in mu]
+    mu.insert(0,0)
+    lam.insert(0,0)
+
+    d = [6/(h[i]+h[i+1])*((y[i+1]-y[i])/h[i+1]-(y[i]-y[i-1])/h[i]) for i in range(1,n)]
+    d.insert(0,0)
+    return mu,lam,d,h
+
+
+# 默认认为x 是按照大小顺序传入
+def cubic_spline_with_2(x,y,l=0,r=0,n=None,solve=sle.lu_solve):
+    if n is None:
+        n = len(x)
+
+    mu,lam,d,h = compute_lists(x,y,n)
+    
+    mat = globals.zeros(n-1,n-1)
+    for i in range(1,n):
+        for j in range(1,n):
+            if i == j:
+                mat[i][j] = 2
+            elif i == j+1:
+                mat[i][j] = mu[i]
+            elif i == j-1:
+                mat[i][j] = lam[j]
+    
+    # M_0=l   M_n=r
+    b = [0,d[1]-mu[1]*l]
+    for i in range(2,n-1):
+        b.append(d[i])
+    b.append(d[n-1]-lam[n-1]*r)
+
+    m = solve(mat,b,n-1)
+    m[0] = l
+    m.append(r)
+    def compute(k):
+        for i in range(2,n+1):
+            if k >= x[i-1] and k <= x[i]:
+                res = (x[i]-k)**3/6/h[i]*m[i-1]
+                res += (k-x[i-1])**3/6/h[i]*m[i]
+                res += (y[i-1]-h[i]**2/6*m[i-1])*(x[i]-k)/h[i]
+                res += (y[i]-h[i]**2/6*m[i])*(k-x[i-1])/h[i]
+                return res
+        
+        return None
+    
+    return compute
+
+def cubic_spline_with_1(x,y,l=0,r=0,n=None,solve=sle.lu_solve):
+    if n is None:
+        n = len(x)
+
+    mu,lam,d,h = compute_lists(x,y,n)
+    lam[0] = 1
+    d[0] = 6/h[1]*((y[1]-y[0])/h[1]-l)
+    d.insert(0,0)
+    d.append(6/h[n]*(r-(y[n]-y[n-1])/h[n]))
+
+    mat = globals.zeros(n+1,n+1)
+    for i in range(1,n+2):
+        for j in range(1,n+2):
+            if i==j:
+                mat[i][j] = 2
+            elif i == j+1:
+                if i == n+1:
+                    mat[i][j] = 1
+                else:
+                    mat[i][j] = mu[i-1]
+            elif i == j-1:
+                mat[i][j] = lam[j-2]
+    
+
+    m = solve(mat,d)
+    
+
+    def compute(k):
+        for i in range(2,n+1):
+            if k >= x[i-1] and k <= x[i]:
+                res = (x[i]-k)**3/6/h[i]*m[i-1]
+                res += (k-x[i-1])**3/6/h[i]*m[i]
+                res += (y[i-1]-h[i]**2/6*m[i-1])*(x[i]-k)/h[i]
+                res += (y[i]-h[i]**2/6*m[i])*(k-x[i-1])/h[i]
+                return res
+        
+        return None
+
+    return compute
+
+
+    
