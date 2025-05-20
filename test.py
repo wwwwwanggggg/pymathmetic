@@ -17,9 +17,13 @@ def f(x):
         return 1
     return sin(x)/x
 
+def g(x):
+    return x**2
 
 x = [0.125*i for i in range(9)]
 
+print(ni.Romberg(g,0,1))
 
-print(ni.composite_trapezoid(f,x))
-print(ni.composite_Simpson(f,x))
+
+# print(ni.composite_trapezoid(f,x))
+# print(ni.composite_Simpson(f,x))

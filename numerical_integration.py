@@ -76,7 +76,7 @@ def composite_Simpson(f:callable,x,n=None):
     
     return res
 
-def composite(f:callable,x,n=None):
+def composite_Cotes(f:callable,x,n=None):
     if n is None:
         n = len(x)
     
@@ -86,3 +86,41 @@ def composite(f:callable,x,n=None):
 
     return res
 
+def Romberg(f:callable,a,b,epslion=1e-6):
+    table = []
+    i=0
+    j = 0
+    temp = []
+    while True:
+        # 计算t
+        if j % 4 == 0:
+            temp = []
+            h = (b-a)/2**(i)
+            x = [a + p*h for p in range(2**i+1)]
+            res = composite_trapezoid(f,x,2**i)
+            temp.append(res)
+
+        # 计算s
+        if i > 0 and j % 4 == 1:
+            s = temp[0] + 1/3*(temp[0]-table[i-1][0])
+            temp.append(s)
+        # 计算 c
+        if i > 1 and j % 4 == 2:
+            c = temp[1]+1/15*(temp[1]-table[i-1][1])
+            temp.append(c)
+
+        # 计算 r
+        if i > 2 and j % 4 == 3:
+            r = temp[2] + 1/63*(temp[2]-table[i-1][2])
+            temp.append(r)
+            
+        
+        if j % 4 == 3:
+            table.append(temp)
+            if i > 3 and abs(table[i][3]-table[i-1][3]) < epslion:
+                return table[i][3]
+
+            i += 1
+
+        j += 1
+        
