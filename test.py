@@ -21,3 +21,5 @@ def g(x):
 
 print(er.bisection(f,0,5))
 print(er.recursion(g,1))
+print(er.Newton(f,1))
+print(er.Newton_downhill(f,1))
