@@ -174,6 +174,9 @@ def cond(mat,norm_func):
 
     return temp
 
+
+def diff(func):
+    return func.diff()
 # A = [
 #     [1,2,4],
 #     [3,4,8],

@@ -5,25 +5,13 @@ import solve_liner_equations as sle
 import poly_interp as p
 import numerical_integration as ni
 from math import *
+import numerical_diff as nd
 
-
-# f = p.cubic_spline_with_1([-3,-1,0,3,4],[7,11,26,56,29])
-
-# print(f(3))
-
+import time
 
 def f(x):
-    if x == 0:
-        return 1
-    return sin(x)/x
+    return exp(x)
 
-def g(x):
-    return x**2
+print(nd.extrapolation(f,1,0.8,3))
+# print(nd.two_points(f,[0.2,1.8]))
 
-x = [0.125*i for i in range(9)]
-
-print(ni.Romberg(g,0,1))
-
-
-# print(ni.composite_trapezoid(f,x))
-# print(ni.composite_Simpson(f,x))
