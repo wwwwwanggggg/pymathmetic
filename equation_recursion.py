@@ -1,7 +1,7 @@
 from math import *
 import globals
 import numerical_diff as nd
-
+import matrix_norm as matn
 
 def bisection(f,a,b,eps=1e-5):
     last = None
@@ -32,12 +32,10 @@ def recursion(g:callable,x,eps=1e-5):
 
 def Newton(f:callable,x,eps=1e-5):
     last = x
-    while True:
-        x = x - f(x)/nd.extrapolation(f,x,h=0.5)
-        if abs(x-last) < eps:
-            return x
-        
-        last = x
+
+    def g(x):
+        return x-f(x)/nd.extrapolation(f,x,h=0.5)
+    return recursion(g,x,eps)
 
 
 # 不可用
@@ -57,3 +55,34 @@ def Newton_downhill(f:callable,x,lam=None,eps=1e-5):
             return x
         
         last = x
+
+
+def secant(f:callable,x0,x1,eps=1e-5):
+    last = x1
+    while True:
+        x = x1 - f(x1)*(x1-x0)/(f(x1)-f(x0))
+        if abs(x-last) < eps:
+            return x
+        last = x
+        x0 = x1
+        x1 = x
+
+
+def non_linear_equation_recursion(f,x,n=None,norm=matn.v_p_norm,eps=1e-5):
+    if n is None:
+        n = len(f)-1
+
+    last = x
+    while True:
+        for i in range(1,n+1):
+            x[i]= f[i](x)
+
+        if abs(norm(x)-norm(last)) < eps:
+            return x
+    
+        last = x
+
+
+
+
+

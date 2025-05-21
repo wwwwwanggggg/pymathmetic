@@ -1,4 +1,4 @@
-def v_p_norm(v,p,n=None):   
+def v_p_norm(v,p=2,n=None):   
     if n is None:
         n = len(v)-1
     
