@@ -177,18 +177,11 @@ def cond(mat,norm_func):
 
 def diff(func):
     return func.diff()
-# A = [
-#     [1,2,4],
-#     [3,4,8],
-#     [5,12,30]
-# ]
 
-# indexlize(A)
-# T(A)
-# output(A)
 
-# A = [[1,2,3,4]]
-# indexlize(A)
-# print(A)
-
-# print(vectorlize(A))
+def sgn(a):
+    if a > 0:
+        return 1
+    elif a < 0:
+        return -1
+    return 0
