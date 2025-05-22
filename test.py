@@ -8,7 +8,7 @@ from math import *
 import numerical_diff as nd
 import equation_recursion as er
 import ode_solver as ode
-
+import polynomial as poly
 import time
 
 # def f(x):
@@ -34,10 +34,21 @@ import time
 #     h = f(i)
 #     if h > 0 and sqrt(h) == int(sqrt(h)):
 #         print("result:",i)
+# def f(x):
+#     return (1+x**2)**(1/3)
 
-def f(x,y):
-    return -0.9*y/(1+2*x)
+# print(er.recursion(f,1.5,1e-5))
 
-print(ode.Euler(f,0,1,0.02,5))
-print()
-print(ode.Runge_Kutta(f,0,1,0.02,5))
+
+# def f(x,y):
+#     return 1-y
+
+# print(ode.Euler(f,0,0,0.1,10))
+h = p.Hermite([-1,0,1],[[2],[5,12,42],[70,164]])
+h.output()
+
+x = list(range(6))
+
+f = poly.Polynomial([5,12,21,20,10,2])
+for i in x:
+    print(h(i),f(i))

@@ -115,6 +115,15 @@ class Hermite_func(Newton_func):
             
             self.table.append(temp)
 
+    def output(self,prefix="",end=""):
+        print(prefix,end="")
+        for i in range(len(self.xs)):
+            print(f"x:{self.xs[i]:<10}y:",end=" ")
+            for j in self.table[i]:
+                print(f"{str(j):^{4}}", end=" ")
+            print()
+        print(end,end="")
+
 
 def Hermite(xs,ys,n=None,h=None):
     if n is None:
