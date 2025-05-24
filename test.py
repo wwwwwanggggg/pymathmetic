@@ -44,11 +44,19 @@ import time
 #     return 1-y
 
 # print(ode.Euler(f,0,0,0.1,10))
-h = p.Hermite([-1,0,1],[[2],[5,12,42],[70,164]])
-h.output()
+# h = p.Hermite([-1,0,1],[[2],[5,12,42],[70,164]])
+# h.output()
 
-x = list(range(6))
+# x = list(range(6))
 
-f = poly.Polynomial([5,12,21,20,10,2])
-for i in x:
-    print(h(i),f(i))
+# f = poly.Polynomial([5,12,21,20,10,2])
+# for i in x:
+#     print(h(i),f(i))
+
+
+# a(x) = 1+2x+3x^2
+a = poly.Polynomial([1,2,3])
+xx = [0,1,2,3,4]
+
+for x in xx:
+    print(a(x))

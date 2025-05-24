@@ -4,12 +4,14 @@ class Polynomial:
         # 升幂排列
         self.coefficients = coefficients
         self.degree = len(coefficients) - 1
+        self.integral = None
 
     def __call__(self,x):
         res = 0
-        for i in range(self.degree +1):
-            res += self.coefficients[i]*(x**(i))
-        
+        # 改用秦九韶算法
+        # 
+        for i in range(self.degree,-1,-1):
+            res = res * x + self.coefficients[i]        
         return res
     
     def __str__(self):
@@ -27,8 +29,12 @@ class Polynomial:
             return Polynomial(new_coefficients)
         
     def integral(self):
+        if self.integral is not None:
+            return self.integral
         new_coefficients = [0] + [self.coefficients[i] / (i + 1) for i in range(self.degree + 1)]
-        return Polynomial(new_coefficients)
+        self.integral = Polynomial(new_coefficients)
+
+        return self.integral
     
     def definite_integral(self,a,b):
         integral_poly = self.integral()
