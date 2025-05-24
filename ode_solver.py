@@ -13,7 +13,7 @@ def Euler(f:callable,x0,y0,h,n):
     return result   
 
 # 标准4级4阶R-K法
-def Runge_Kutta(f:callable,x0,y0,h,n):
+def Runge_Kutta_classic(f:callable,x0,y0,h,n):
     result = [(x0,y0)]
 
     x = x0
@@ -31,3 +31,5 @@ def Runge_Kutta(f:callable,x0,y0,h,n):
 
     
     return result
+
+
